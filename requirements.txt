@@ -1,0 +1,5 @@
+ffmpeg==1.4
+numba==0.50.1
+numpy==1.19.0
+pytest==6.2.2
+pytest-cov==2.11.1
