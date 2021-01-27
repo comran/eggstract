@@ -3,3 +3,5 @@ numba==0.50.1
 numpy==1.19.0
 pytest==6.2.2
 pytest-cov==2.11.1
+librosa==0.8.0
+matplotlib==3.2.2
