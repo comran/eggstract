@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"search.useGlobalIgnoreFiles": true,
+		"search.exclude": {
+			"**/__pycache__": true
+		},
+		"files.exclude": {
+			".coverage": true,
+			".pytest_cache": true,
+			"**/__pycache__": true,
+			"coverage.xml": true
+		}
+	}
+}

@@ -5,6 +5,11 @@ cd "$(dirname "$(realpath "$0")")";
 
 # Handle different build commands.
 case "$1" in
+  "cli")
+    shift
+    python3 src/cli/cli.py $@
+    ;;
+
   "test")
     python3 -m pytest --cov-report=xml --cov=src
     ;;
