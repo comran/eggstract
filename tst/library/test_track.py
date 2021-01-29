@@ -1,1 +1,1 @@
-from src.library import track
+from src.library.source.track import Track

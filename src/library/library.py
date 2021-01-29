@@ -4,7 +4,7 @@ import shutil
 from enum import Enum
 from typing import Dict, Optional
 
-from src.library.track import Track
+from src.library.source.track import Track
 
 LIBRARY_FOLDER = "data/raw/library"
 LIBRARY_AUDIO_FOLDER = f"{LIBRARY_FOLDER}/audio"
