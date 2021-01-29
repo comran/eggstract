@@ -11,7 +11,8 @@ case "$1" in
     ;;
 
   "test")
-    python3 -m pytest --cov-report=xml --cov=src
+    shift
+    python3 -m pytest --cov-report=xml --cov=src --verbose $@
     ;;
 
   "interactive")
