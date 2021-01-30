@@ -13,6 +13,7 @@ case "$1" in
   "test")
     shift
     python3 -m pytest --cov-report=xml --cov=src --verbose $@
+    python3 -m coverage report -m --fail-under=50
     ;;
 
   "interactive")
@@ -28,6 +29,9 @@ case "$1" in
     echo "Running isort formatter..."
     python3 -m isort src/**/*.py
     python3 -m isort tst/**/*.py
+    echo "Done!"
+    echo "Running autoflake..."
+    python3 -m autoflake --in-place -r src
     echo "Done!"
     ;;
 

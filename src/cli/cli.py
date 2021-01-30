@@ -8,7 +8,6 @@ def cli():
     """
     An experimental project for extracting component audio tracks from songs.
     """
-    pass
 
 
 @cli.group()
@@ -16,7 +15,6 @@ def library():
     """
     Maintains track data used for training and testing.
     """
-    pass
 
 
 @library.command()

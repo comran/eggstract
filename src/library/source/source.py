@@ -1,11 +1,9 @@
 from abc import ABC, abstractmethod
 from scipy.io.wavfile import write
-import librosa
-import librosa.display
-import matplotlib.pyplot as plt
 import numpy as np
 
-DEFAULT_SAMPLE_RATE = 44100
+from src.util.constants import DEFAULT_SAMPLE_RATE
+from src.util import audio_tools
 
 
 class Source(ABC):
@@ -20,18 +18,10 @@ class Source(ABC):
         return self.sample_rate
 
     def write_to_file(self, file_location: str):
-        wave = (self.get_wave() * np.power(2, 15)).astype(np.int16)
-        write(file_location, self.sample_rate, wave)
+        audio_tools.write_wave_to_file(file_location, self.get_wave(), self.get_sample_rate())
 
     def display_wave(self):
-        wave = self.get_wave()
-        # plt.figure(figsize=(14, 5))
-        # librosa.display.waveplot(wave, sr=self.sample_rate)
-        # plt.show()
+        audio_tools.display_wave(self.get_wave(), self.get_sample_rate())
 
-        X = librosa.stft(wave)
-        Xdb = librosa.amplitude_to_db(abs(X))
-        plt.figure(figsize=(14, 5))
-        librosa.display.specshow(Xdb, sr=self.sample_rate, x_axis="time", y_axis="hz")
-        plt.colorbar()
-        plt.show()
+    def display_spectrum(self):
+        audio_tools.display_spectrum(self.get_wave(), self.get_sample_rate())

@@ -1,8 +1,8 @@
 import librosa
 
 from src.util.crypto import get_file_sha256
-
-DEFAULT_SAMPLE_RATE = 44100
+from src.util.constants import DEFAULT_SAMPLE_RATE
+from src.util.audio_tools import load_wave_from_file
 
 
 class Track:
@@ -15,5 +15,4 @@ class Track:
         return self.sha256
 
     def get_wave(self):
-        x, _ = librosa.load(self.file_location, sr=self.sample_rate)
-        return x
+        return load_wave_from_file(self.file_location, self.sample_rate)

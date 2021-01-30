@@ -1,7 +1,6 @@
 import json
 import os
 import shutil
-from enum import Enum
 from typing import Dict, Optional
 
 from src.library.source.track import Track

@@ -1,6 +1,7 @@
 /data
-*.swp
-__pycache__
-coverage.xml
 /.coverage
+*.swp
+*.wav
+coverage.xml
 .pytest_cache
+__pycache__
