@@ -16,6 +16,11 @@ case "$1" in
     python3 -m coverage report -m --fail-under=50
     ;;
 
+  "test_small")
+    shift
+    python3 -m pytest --cov-report=xml --cov=src --verbose --disable-pytest-warnings $@
+    ;;
+
   "interactive")
     python3 -c "from IPython import embed; embed()"
     ;;
