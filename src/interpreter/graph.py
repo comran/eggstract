@@ -1,12 +1,10 @@
-from typing import Any, List
+from typing import Any, List, cast
 
 import yaml
 
+from src.interpreter.graph_exception import GraphException
 from src.interpreter.graph_node import GraphElementType, GraphNode
-
-
-class GraphException(Exception):
-    pass
+from src.interpreter.graph_transform import GraphTransform
 
 
 class Graph:
@@ -25,7 +23,8 @@ class Graph:
             raise GraphException(f"Node [{node_class_name}] was already defined in the graph")
 
         if new_node.element_type == GraphElementType.TRANSFORM:
-            new_node.verify_dependencies_exist(self)
+            new_transform_node = cast(GraphTransform, new_node)
+            new_transform_node.verify_dependencies_exist(self)
 
         self.defined_nodes[node_class_name] = new_node
 

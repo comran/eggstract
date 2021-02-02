@@ -10,6 +10,28 @@ LIBRARY_AUDIO_FOLDER = f"{LIBRARY_FOLDER}/audio"
 LIBRARY_METADATA_FOLDER = f"{LIBRARY_FOLDER}/metadata"
 LIBRARY_METADATA_FILE = f"{LIBRARY_METADATA_FOLDER}/metadata.json"
 
+ACCEPTED_FILETYPES = ["mp3", "wav"]
+
+
+def check_filetype_accepted(self, filetype: str) -> bool:
+    if filetype[0] == ".":
+        filetype = filetype[1:]
+
+    return filetype in ACCEPTED_FILETYPES
+
+
+def load_from_folder(folder_location: str):
+    track_files = []
+
+    # Gather all files in folder.
+    for root, _, files in os.walk(folder_location):
+        for f in files:
+            if not f.endswith(".mp3"):
+                continue
+
+            full_path = os.path.join(root, f)
+            track_files.append(full_path)
+
 
 class Library:
     def __init__(self):
@@ -29,7 +51,7 @@ class Library:
             self.metadata = {"tracks": []}
 
         # Create structure for storing the actual Track objects.
-        self.tracks: Dict[str] = {}
+        self.tracks: Dict[str, Track] = {}
 
     def flush_metadata_to_file(self):
         with open(LIBRARY_METADATA_FILE, "w") as f:

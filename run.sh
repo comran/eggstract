@@ -2,6 +2,7 @@
 
 # Change cwd to script location.
 cd "$(dirname "$(realpath "$0")")";
+export PYTHON_PATH=$(pwd)
 
 # Handle different build commands.
 case "$1" in
@@ -11,9 +12,19 @@ case "$1" in
     ;;
 
   "test")
+    set -e
     shift
+    echo "Running pytest..."
     python3 -m pytest --cov-report=xml --cov=src --verbose $@
-    python3 -m coverage report -m --fail-under=50
+    echo "Done!"
+    echo ""
+    echo "Running mypy..."
+    python3 -m mypy
+    echo "Done!"
+    echo ""
+    echo "Generating coverage report..."
+    python3 -m coverage report -m #--fail-under=50
+    echo "Done!"
     ;;
 
   "test_small")

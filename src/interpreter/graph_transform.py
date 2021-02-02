@@ -1,11 +1,13 @@
-from src.interpreter.graph import GraphException
+from typing import Any, List
+
+from src.interpreter.graph_exception import GraphException
 from src.interpreter.graph_node import GraphElementType, GraphNode
 
 
 class GraphTransform(GraphNode):
     element_type = GraphElementType.TRANSFORM
-    output_type = None
-    dependencies = []
+    output_type: Any = None
+    dependencies: List[Any] = []
 
     @classmethod
     def verify_dependencies_exist(obj, graph):

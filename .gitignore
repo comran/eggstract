@@ -1,6 +1,7 @@
 /data
 /prototyping
 /.coverage
+/.mypy_cache
 *.swp
 *.wav
 coverage.xml
