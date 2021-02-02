@@ -2,7 +2,30 @@
 
 # Change cwd to script location.
 cd "$(dirname "$(realpath "$0")")";
-export PYTHON_PATH=$(pwd)
+
+check_for_init_py() {
+  subdirs=$(find src -type d \( ! -iname __pycache__ \))
+  failed=0
+
+  for subdir in $subdirs
+  do
+    test -f "$subdir/__init__.py"
+
+    if [ $? -eq 1 ]
+    then
+      echo "$subdir needs an __init__.py file"
+      failed=1
+    else
+      echo "$subdir/__init__.py exists"
+    fi
+
+  done
+
+  if [ $failed -eq 1 ]
+  then
+    exit 1
+  fi
+}
 
 # Handle different build commands.
 case "$1" in
@@ -12,16 +35,24 @@ case "$1" in
     ;;
 
   "test")
-    set -e
     shift
+    echo "#########################################################################################"
+    echo "Running check_for_init_py..."
+    check_for_init_py
+    echo "Done!"
+    set -e
+    echo ""
+    echo "#########################################################################################"
     echo "Running pytest..."
     python3 -m pytest --cov-report=xml --cov=src --verbose $@
     echo "Done!"
     echo ""
+    echo "#########################################################################################"
     echo "Running mypy..."
     python3 -m mypy
     echo "Done!"
     echo ""
+    echo "#########################################################################################"
     echo "Generating coverage report..."
     python3 -m coverage report -m #--fail-under=50
     echo "Done!"
