@@ -15,8 +15,6 @@ check_for_init_py() {
     then
       echo "$subdir needs an __init__.py file"
       failed=1
-    else
-      echo "$subdir/__init__.py exists"
     fi
 
   done
