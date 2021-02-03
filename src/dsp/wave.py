@@ -36,30 +36,6 @@ class Wave:
 
     ################################################################################################
 
-    def frequencies(self) -> np.ndarray:
-        """
-        Creates a list of frequencies that appear in the signal, sorted in decreasing order by their
-        amplitude.
-        """
-
-        # Convert from time domain to frequency domain using a fast fourier transform.
-        fft = np.fft.fft(self.signal)
-
-        # Extract amplitudes and frequencies from the fft results.
-        amplitudes = 1 / self.sample_count * np.abs(fft)
-        frequencies = np.fft.fftfreq(self.sample_count) * self.sample_count / self.time_s
-
-        # Get one side of the frequency/amplitude ranges.
-        frequencies = frequencies[: len(frequencies) // 2]
-        amplitudes = amplitudes[: len(fft) // 2]
-
-        # Stack the result, and sort by frequency.
-        frequency_domain = np.column_stack((frequencies, amplitudes))
-        frequency_domain = frequency_domain[((-frequency_domain[:, 1]).argsort())]
-
-        # Return largest frequencies.
-        return np.array(frequency_domain[:, 0])
-
     def display_signal(self):
         """
         Displays the waveform.

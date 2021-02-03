@@ -13,6 +13,5 @@ def generate_sine(
 
     t = np.arange(offset_time_s, duration_s + offset_time_s, 1.0 / sample_rate)
     signal = np.sin(2 * np.pi * frequency * t)
-    wave = Wave(signal, sample_rate)
 
-    return wave
+    return Wave(signal, sample_rate)

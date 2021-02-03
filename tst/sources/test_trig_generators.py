@@ -1,6 +1,7 @@
 import numpy as np
 import pytest
 
+from src.dsp.fft import Fft
 from src.sources.trig_generators import generate_sine
 
 
@@ -14,5 +15,5 @@ def test_generate_sine(frequency: float, duration: float):
     np.testing.assert_almost_equal(len(signal), sample_rate * duration, decimal=2)
 
     # Verify that the peak frequency matches the desired frequency given to the constructor.
-    largest_frequencies = wave.frequencies()
+    largest_frequencies = Fft.from_wave(wave).frequencies_sorted()
     np.testing.assert_almost_equal(largest_frequencies[0], frequency, decimal=2)
