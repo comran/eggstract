@@ -42,7 +42,7 @@ case "$1" in
     echo ""
     echo "#########################################################################################"
     echo "Running pytest..."
-    python3 -m pytest --cov-report=xml --cov=src --verbose $@
+    python3 -m pytest --cov-report=xml --cov=src --verbose -n auto $@
     echo "Done!"
     echo ""
     echo "#########################################################################################"
