@@ -2,6 +2,7 @@
 /prototyping
 /.coverage
 /.mypy_cache
+/profile.prof
 *.swp
 *.wav
 coverage.xml

@@ -32,6 +32,12 @@ case "$1" in
     python3 src/cli/cli.py $@
     ;;
 
+  "profile")
+    shift
+    python3 -m cProfile -s time -o profile.prof -m pytest --disable-pytest-warnings $@
+    python3 -m snakeviz profile.prof
+    ;;
+
   "test")
     shift
     echo "#########################################################################################"
