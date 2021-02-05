@@ -1,7 +1,7 @@
 import pytest
 import numpy as np
 
-from src.analysis.beat import bpm
+from src.analysis import bpm
 from src.dsp.wave import Wave
 from src.util import constants
 
