@@ -33,8 +33,14 @@ class Wave:
     ################################################################################################
 
     @classmethod
-    def load_from_file(cls, file_location: str, sample_rate: int = constants.DEFAULT_SAMPLE_RATE):
-        wave_array, _ = librosa.load(file_location, sr=sample_rate)
+    def load_from_file(
+        cls,
+        file_location: str,
+        duration_s: Optional[float] = None,
+        sample_rate: int = constants.DEFAULT_SAMPLE_RATE,
+    ):
+
+        wave_array, _ = librosa.load(file_location, sr=sample_rate, duration=duration_s)
 
         return cls(wave_array, sample_rate)
 
