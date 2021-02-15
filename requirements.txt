@@ -17,3 +17,8 @@ torch==1.7.1
 matplotlib==3.2.2
 PyYAML==3.13
 mypy==0.800
+barbar==0.2.1
+pandas==1.0.5
+pandas-datareader==0.8.1
+tqdm==4.46.1
+torchvision==0.8.2
