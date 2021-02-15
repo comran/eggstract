@@ -1,4 +1,5 @@
 import os
+import pickle
 
 import barbar
 import librosa
@@ -154,6 +155,9 @@ class VocalDetector:
             f"{DATA_ROOT}/datasets/ESC-50-master/audio", self.train_folds, "filename", "category"
         )
 
+        with open(f"{DATA_ROOT}/trained/indtocat.pkl", "wb") as f:
+            pickle.dump(train_data.i2c, f)
+
         print("Loading validation data")
         valid_data = VocalDetectorData(
             f"{DATA_ROOT}/datasets/ESC-50-master/audio", self.valid_folds, "filename", "category"
@@ -215,6 +219,20 @@ class VocalDetector:
                 f"Epoch - {epoch} Valid-Loss : {np.mean(valid_losses[-1])} "
                 f"Valid-Accuracy : {accuracy}"
             )
+
+    def load_model_from_file(self):
+        self.resnet_model = torch.load(f"{DATA_ROOT}/trained/resnet.pth", map_location=self.device)
+        self.resnet_model.eval()
+
+    def forward(self):
+        with open(f"{DATA_ROOT}/trained/indtocat.pkl", "rb") as f:
+            indtocat = pickle.load(f)
+        filename = f"{DATA_ROOT}/datasets/ESC-50-master/audio/1-116765-A-41.wav"
+        spec = spec_to_image(get_melspectrogram_db(filename))
+        spec_t = torch.tensor(spec).to(self.device, dtype=torch.float32)
+        pr = self.resnet_model.forward(spec_t.reshape(1, 1, *spec_t.shape))
+        ind = pr.argmax(dim=1).cpu().detach().numpy().ravel()[0]
+        print(indtocat[ind])
 
     def lr_decay(self, optimizer, epoch):
         if epoch % 10 == 0:
